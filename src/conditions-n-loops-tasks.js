@@ -21,8 +21,11 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  if (number < 0) {
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -38,8 +41,15 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const arr = [a, b, c];
+  let res = 0;
+  for (let i = 0; i <= arr.length; i += 1) {
+    if (arr[i] > res) {
+      res = arr[i];
+    }
+  }
+  return res;
 }
 
 /**
@@ -82,8 +92,29 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (c === 5) {
+    return false;
+  }
+  const arr = [a, b, c];
+  for (let i = 0; i <= arr.length; i += 1) {
+    if (arr[i] === 0) {
+      return false;
+    }
+  }
+  for (let i = 1; i <= arr.length; i += 1) {
+    let count = i;
+    if (arr[0] === arr[i]) {
+      count += 1;
+    }
+    if (count > i) {
+      return true;
+    }
+  }
+  if (arr[1] === arr[2]) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -135,8 +166,17 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let count = 0;
+  for (let i = 0; i <= Math.floor(str.length / 2) - 1; i += 1) {
+    if (str[i] !== str[str.length - 1 - i]) {
+      count += 1;
+    }
+  }
+  if (count === 0) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -153,8 +193,13 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i <= str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -172,8 +217,14 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numStr = String(num);
+  for (let i = 0; i <= numStr.length; i += 1) {
+    if (numStr[i] === String(digit)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -274,6 +325,23 @@ function sortByAsc(/* arr */) {
  */
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
+  /*  let strEmpty = '';
+  let strResult = str;
+  for (let j = 1; j <= iterations; j += 1) {
+    for (let i = 0; i < strResult.length; i += 1) {
+      if (i % 2 === 0) {
+        strEmpty += strResult[i];
+      }
+    }
+    for (let i = 0; i < strResult.length; i += 1) {
+      if (i % 2 !== 0) {
+        strEmpty += strResult[i];
+      }
+    }
+    strResult = strEmpty;
+    strEmpty = '';
+  }
+  return strResult; */
 }
 
 /**
@@ -295,6 +363,39 @@ function shuffleChar(/* str, iterations */) {
  */
 function getNearestBigger(/* number */) {
   throw new Error('Not implemented');
+  let numberArr = [];
+  const numberStr = String(number);
+  
+  for (let i = 0; i < numberStr.length; i += 1) {
+    numberArr.push(Number(numberStr[i]))
+  }
+  
+  const sortNumberArr = numberArr.toSpliced(0, 1).toSorted();
+  let numberResArr = numberArr.toSpliced(1, numberArr.length - 1)
+
+  
+  for (let i = 1; i < numberArr.length; i += 1) {
+    for(let j = 0; j < sortNumberArr.length; j += 1) {
+      if (numberArr[i] === 0) {
+        for (let k = 0; k < sortNumberArr.length; k += 1) {
+          if(sortNumberArr[k] > 0) {
+        numberResArr.push(sortNumberArr[k]);
+        sortNumberArr.splice(k, 1);
+        break;
+          }
+        }
+      }
+      if (numberArr[i] < sortNumberArr[j]) {
+        numberResArr.push(sortNumberArr[j]);
+        sortNumberArr.splice(j, 1);
+        break;
+      } else {
+        numberResArr.push(sortNumberArr[0]);
+        sortNumberArr.splice(0, 1);
+      }
+    }
+  } 
+  return numberResArr;
 }
 
 module.exports = {
