@@ -131,8 +131,58 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const tens = Math.floor(num / 10);
+  const units = num % 10;
+  let tensStr = '';
+  let unitsStr = '';
+
+  switch (tens) {
+    case 1:
+      tensStr = 'X';
+      break;
+    case 2:
+      tensStr = 'XX';
+      break;
+    case 3:
+      tensStr = 'XXX';
+      break;
+    default:
+      tensStr = '';
+  }
+  switch (units) {
+    case 1:
+      unitsStr = 'I';
+      break;
+    case 2:
+      unitsStr = 'II';
+      break;
+    case 3:
+      unitsStr = 'III';
+      break;
+    case 4:
+      unitsStr = 'IV';
+      break;
+    case 5:
+      unitsStr = 'V';
+      break;
+    case 6:
+      unitsStr = 'VI';
+      break;
+    case 7:
+      unitsStr = 'VII';
+      break;
+    case 8:
+      unitsStr = 'VIII';
+      break;
+    case 9:
+      unitsStr = 'IX';
+      break;
+    default:
+      unitsStr = '';
+  }
+
+  return tensStr + unitsStr;
 }
 
 /**
@@ -150,8 +200,54 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  let subStr = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '1':
+        subStr = 'one';
+        break;
+      case '2':
+        subStr = 'two';
+        break;
+      case '3':
+        subStr = 'three';
+        break;
+      case '4':
+        subStr = 'four';
+        break;
+      case '5':
+        subStr = 'five';
+        break;
+      case '6':
+        subStr = 'six';
+        break;
+      case '7':
+        subStr = 'seven';
+        break;
+      case '8':
+        subStr = 'eight';
+        break;
+      case '9':
+        subStr = 'nine';
+        break;
+      case '0':
+        subStr = 'zero';
+        break;
+      case '-':
+        subStr = 'minus';
+        break;
+      default:
+        subStr = 'point';
+        break;
+    }
+    if (i > 0) {
+      result += ' ';
+    }
+    result += subStr;
+  }
+  return result;
 }
 
 /**
@@ -363,39 +459,37 @@ function shuffleChar(/* str, iterations */) {
  */
 function getNearestBigger(/* number */) {
   throw new Error('Not implemented');
-  let numberArr = [];
+  /* let numberArr = [];
   const numberStr = String(number);
   
   for (let i = 0; i < numberStr.length; i += 1) {
     numberArr.push(Number(numberStr[i]))
   }
-  
-  const sortNumberArr = numberArr.toSpliced(0, 1).toSorted();
-  let numberResArr = numberArr.toSpliced(1, numberArr.length - 1)
 
-  
-  for (let i = 1; i < numberArr.length; i += 1) {
-    for(let j = 0; j < sortNumberArr.length; j += 1) {
-      if (numberArr[i] === 0) {
-        for (let k = 0; k < sortNumberArr.length; k += 1) {
-          if(sortNumberArr[k] > 0) {
-        numberResArr.push(sortNumberArr[k]);
-        sortNumberArr.splice(k, 1);
-        break;
-          }
-        }
+  let numberResArr = numberArr.toSpliced(1, numberArr.length - 1)
+  let res = [];
+  const num = numberArr.toSpliced(0, 1);
+  let sortNumberArrSplice = numberArr.toSpliced(0, 1).toSorted().reverse();
+  for (let i = -1; i < sortNumberArrSplice.length - 1; i += 1) {
+    let sortNum = sortNumberArrSplice.toSpliced(sortNumberArrSplice.length - 2 - i, 0, Number(sortNumberArrSplice.slice(sortNumberArrSplice.length - 1))).toSpliced(sortNumberArrSplice.length, 1);
+    
+  console.log(sortNum)
+    if (Number(sortNum.join('')) < Number(num.join(''))) {
+      let sortNumNew = sortNum.toSpliced(sortNum.length - 1, 0, sortNum[3 - i]).toSpliced(4 - i, 0, sortNum[sortNum.length - 1]).toSpliced(sortNum.length + 1, 1).toSpliced(3 - i, 1);
+      sortNumberArrSplice = sortNumNew;
+      
+      if(Number(sortNumNew.join('')) > Number(num.join(''))) {
+        i = -1
+      }  
+      if(Number(sortNumNew.join('')) === Number(num.join(''))) {     
+        res = sortNumNew.toSpliced(sortNumNew.length - 2, 0, sortNumNew[sortNumNew.length - 1]).toSpliced(sortNumNew.length, 1)
+        break
       }
-      if (numberArr[i] < sortNumberArr[j]) {
-        numberResArr.push(sortNumberArr[j]);
-        sortNumberArr.splice(j, 1);
-        break;
-      } else {
-        numberResArr.push(sortNumberArr[0]);
-        sortNumberArr.splice(0, 1);
-      }
-    }
-  } 
-  return numberResArr;
+    }    
+  }
+
+  const result = numberArr.toSpliced(1)
+  return Number(result.concat(res).join('')); */
 }
 
 module.exports = {
