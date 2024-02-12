@@ -561,39 +561,22 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-  /* let numberArr = [];
-  const numberStr = String(number);
-  
-  for (let i = 0; i < numberStr.length; i += 1) {
-    numberArr.push(Number(numberStr[i]))
+function getNearestBigger(number) {
+  const digitsSort = [];
+  const digits = Array.from(String(number));
+  digitsSort.push(digits.pop());
+  while (digitsSort[digitsSort.length - 1] <= digits[digits.length - 1]) {
+    digitsSort.push(digits.pop());
   }
-
-  let numberResArr = numberArr.toSpliced(1, numberArr.length - 1)
-  let res = [];
-  const num = numberArr.toSpliced(0, 1);
-  let sortNumberArrSplice = numberArr.toSpliced(0, 1).toSorted().reverse();
-  for (let i = -1; i < sortNumberArrSplice.length - 1; i += 1) {
-    let sortNum = sortNumberArrSplice.toSpliced(sortNumberArrSplice.length - 2 - i, 0, Number(sortNumberArrSplice.slice(sortNumberArrSplice.length - 1))).toSpliced(sortNumberArrSplice.length, 1);
-    
-  console.log(sortNum)
-    if (Number(sortNum.join('')) < Number(num.join(''))) {
-      let sortNumNew = sortNum.toSpliced(sortNum.length - 1, 0, sortNum[3 - i]).toSpliced(4 - i, 0, sortNum[sortNum.length - 1]).toSpliced(sortNum.length + 1, 1).toSpliced(3 - i, 1);
-      sortNumberArrSplice = sortNumNew;
-      
-      if(Number(sortNumNew.join('')) > Number(num.join(''))) {
-        i = -1
-      }  
-      if(Number(sortNumNew.join('')) === Number(num.join(''))) {     
-        res = sortNumNew.toSpliced(sortNumNew.length - 2, 0, sortNumNew[sortNumNew.length - 1]).toSpliced(sortNumNew.length, 1)
-        break
-      }
-    }    
+  for (let i = 0; i < digitsSort.length; i += 1) {
+    if (digits[digits.length - 1] < digitsSort[i]) {
+      const item = digitsSort.splice(i, 1, digits.pop());
+      digits.push(item[0]);
+      break;
+    }
   }
-
-  const result = numberArr.toSpliced(1)
-  return Number(result.concat(res).join('')); */
+  const result = Number(digits.join('') + digitsSort.join(''));
+  return result;
 }
 
 module.exports = {
